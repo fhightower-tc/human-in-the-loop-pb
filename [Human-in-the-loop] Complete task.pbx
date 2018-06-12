@@ -1,0 +1,298 @@
+{
+  "definitionVersion" : "1.0.0",
+  "name" : "[Human-in-the-Loop] Complete task",
+  "type" : "Standard",
+  "panX" : 30.0,
+  "panY" : 20.0,
+  "logLevel" : "WARN",
+  "description" : "",
+  "jobList" : [ {
+    "id" : 19139,
+    "appCatalogItem" : {
+      "programName" : "TCPB - SetVariable v1.0",
+      "displayName" : "Set Variable",
+      "programVersion" : "1.0.5"
+    },
+    "name" : "Set Variable 1",
+    "scheduleType" : "Daily",
+    "scheduleLOM" : false,
+    "notifyOnFailure" : true,
+    "notifyOnPartialFailure" : false,
+    "notifyOnComplete" : false,
+    "notifyIncludeLogFiles" : false,
+    "enableNotifications" : false,
+    "publishAuth" : false,
+    "publishUsername" : "RpspWu9RToFOMIOO",
+    "publishPassword" : "KvfX2Fd7cgcw1ikx",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "variable_mapping"
+      },
+      "value" : "[{\"key\":\"humanInTheLoopDatastoreName\",\"value\":\"humanInTheLoop\"}]"
+    } ],
+    "locationLeft" : 300.0,
+    "locationTop" : 110.0,
+    "outputVariables" : "[{\"name\":\"humanInTheLoopDatastoreName\",\"type\":\"String\"}]",
+    "playbookRetryEnabled" : false
+  }, {
+    "id" : 19140,
+    "appCatalogItem" : {
+      "programName" : "DataStore",
+      "displayName" : "DataStore",
+      "programVersion" : "1.0.0"
+    },
+    "name" : "Datastore: Get trigger URL",
+    "scheduleType" : "Daily",
+    "scheduleLOM" : false,
+    "notifyOnFailure" : true,
+    "notifyOnPartialFailure" : false,
+    "notifyOnComplete" : false,
+    "notifyIncludeLogFiles" : false,
+    "enableNotifications" : false,
+    "publishAuth" : false,
+    "publishUsername" : "EgMRmqlFnvjSR3V6",
+    "publishPassword" : "FfphRKF6vLOteShg",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "request_entity"
+      },
+      "value" : ""
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "type_name"
+      },
+      "value" : "#App:19139:humanInTheLoopDatastoreName!String"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "organization_name"
+      },
+      "value" : ""
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "db_method"
+      },
+      "value" : "GET"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "path"
+      },
+      "value" : "#Trigger:1918:trg.action.item!String"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "domain_type"
+      },
+      "value" : "Organization"
+    } ],
+    "locationLeft" : 300.0,
+    "locationTop" : 230.0,
+    "outputVariables" : "[{\"name\":\"datastore.response\",\"type\":\"String\"}]",
+    "playbookRetryEnabled" : false
+  }, {
+    "id" : 19144,
+    "appCatalogItem" : {
+      "programName" : "TCPB - JsonPath v1.0",
+      "displayName" : "Json Path",
+      "programVersion" : "2.0.3"
+    },
+    "name" : "Json Path 1",
+    "scheduleType" : "Daily",
+    "scheduleLOM" : false,
+    "notifyOnFailure" : true,
+    "notifyOnPartialFailure" : false,
+    "notifyOnComplete" : false,
+    "notifyIncludeLogFiles" : false,
+    "enableNotifications" : false,
+    "publishAuth" : false,
+    "publishUsername" : "h4xPqod850YIXnUN",
+    "publishPassword" : "IU6e690m3pB9EZ9m",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "null_missing_leaf"
+      },
+      "value" : "false"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "column_mapping"
+      },
+      "value" : "[]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "column_mapping_as_string"
+      },
+      "value" : "[{\"key\":\"targetURL\",\"value\":\"_source.target\"}]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "json_content"
+      },
+      "value" : "#App:19140:datastore.response!String"
+    } ],
+    "locationLeft" : 520.0,
+    "locationTop" : 230.0,
+    "outputVariables" : "[{\"name\":\"targetURL\",\"type\":\"String\"}]",
+    "playbookRetryEnabled" : false
+  }, {
+    "id" : 19145,
+    "appCatalogItem" : {
+      "programName" : "TCPB - HTTP Client v2.0",
+      "displayName" : "HTTP Client",
+      "programVersion" : "2.0.5"
+    },
+    "name" : "HTTP Client: Call trigger",
+    "scheduleType" : "Daily",
+    "scheduleLOM" : false,
+    "notifyOnFailure" : true,
+    "notifyOnPartialFailure" : false,
+    "notifyOnComplete" : false,
+    "notifyIncludeLogFiles" : false,
+    "enableNotifications" : false,
+    "publishAuth" : false,
+    "publishUsername" : "wdttkKa3dgompYHx",
+    "publishPassword" : "13S41gc8mncGiaaq",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "body"
+      }
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "fail_on_error"
+      },
+      "value" : "true"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "url"
+      },
+      "value" : "#App:19144:targetURL!String"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "multipart"
+      },
+      "value" : "[]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "http_method"
+      },
+      "value" : "GET"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "verify_ssl"
+      },
+      "value" : "true"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "advanced"
+      },
+      "value" : "[]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "proxies_enabled"
+      },
+      "value" : "false"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "headers"
+      },
+      "value" : "[{\"key\":\"hilComplete\",\"value\":\"true\"}]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "params"
+      },
+      "value" : "[]"
+    } ],
+    "locationLeft" : 740.0,
+    "locationTop" : 230.0,
+    "playbookRetryEnabled" : false,
+    "playbookRetryDelayMinutes" : 1,
+    "playbookRetryMaxRetries" : 5
+  }, {
+    "id" : 19147,
+    "appCatalogItem" : {
+      "programName" : "TCPB - TC Api v1.0",
+      "displayName" : "ThreatConnect API",
+      "programVersion" : "1.0.4"
+    },
+    "name" : "TC API: Complete Task",
+    "scheduleType" : "Daily",
+    "scheduleLOM" : false,
+    "notifyOnFailure" : true,
+    "notifyOnPartialFailure" : false,
+    "notifyOnComplete" : false,
+    "notifyIncludeLogFiles" : false,
+    "enableNotifications" : false,
+    "publishAuth" : false,
+    "publishUsername" : "kh6P5RsZEmIb7SxG",
+    "publishPassword" : "A1pfMaQWdSNm4a93",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "method"
+      },
+      "value" : "PUT"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "query_params"
+      },
+      "value" : "[]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "body"
+      },
+      "value" : "{\n\"status\": \"Completed\"\n}"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "headers"
+      },
+      "value" : "[]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "path"
+      },
+      "value" : "/v2/tasks/#Trigger:1918:trg.action.item!String/"
+    } ],
+    "locationLeft" : 300.0,
+    "locationTop" : 350.0,
+    "playbookRetryEnabled" : false
+  } ],
+  "playbookConnectionList" : [ {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "targetJobId" : 19139,
+    "sourceTriggerId" : 1918
+  }, {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "sourceJobId" : 19139,
+    "targetJobId" : 19140
+  }, {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "sourceJobId" : 19140,
+    "targetJobId" : 19144
+  }, {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "sourceJobId" : 19144,
+    "targetJobId" : 19145
+  }, {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "sourceJobId" : 19145,
+    "targetJobId" : 19147
+  } ],
+  "playbookTriggerList" : [ {
+    "id" : 1918,
+    "name" : "Human-in-the-Loop Complete Task",
+    "type" : "UserAction",
+    "eventType" : "External",
+    "locationLeft" : 50.0,
+    "locationTop" : 110.0,
+    "httpBasicAuthEnable" : false,
+    "httpResponseHeader" : "[]",
+    "anyOrg" : true,
+    "orFilters" : false,
+    "fireOnDuplicate" : false,
+    "userActionTypes" : "Task",
+    "renderBodyAsTip" : false,
+    "outputVariables" : "[{\"name\":\"trg.action.item\",\"type\":\"String\"}]"
+  } ],
+  "exportablePipes" : [ ],
+  "dateExported" : "6/12/18 12:29 PM"
+}
