@@ -1,0 +1,221 @@
+{
+  "definitionVersion" : "1.0.0",
+  "name" : "[Human-in-the-Loop] Create task",
+  "type" : "Pipe",
+  "panX" : 20.0,
+  "panY" : 59.0,
+  "logLevel" : "WARN",
+  "description" : "",
+  "jobList" : [ {
+    "id" : 19133,
+    "appCatalogItem" : {
+      "programName" : "TCPB - SetVariable v1.0",
+      "displayName" : "Set Variable",
+      "programVersion" : "1.0.5"
+    },
+    "name" : "Set Variable 1",
+    "scheduleType" : "Daily",
+    "scheduleLOM" : false,
+    "notifyOnFailure" : true,
+    "notifyOnPartialFailure" : false,
+    "notifyOnComplete" : false,
+    "notifyIncludeLogFiles" : false,
+    "enableNotifications" : false,
+    "publishAuth" : false,
+    "publishUsername" : "lS957lcUZh2mOJ00",
+    "publishPassword" : "yPBvVM98peeT6j7j",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "variable_mapping"
+      },
+      "value" : "[{\"key\":\"humanInTheLoopDatastoreName\",\"value\":\"humanInTheLoop\"}]"
+    } ],
+    "locationLeft" : 710.0,
+    "locationTop" : 210.0,
+    "outputVariables" : "[{\"name\":\"humanInTheLoopDatastoreName\",\"type\":\"String\"}]",
+    "playbookRetryEnabled" : false
+  }, {
+    "id" : 19134,
+    "appCatalogItem" : {
+      "programName" : "TCPB - TaskCreate v1.0",
+      "displayName" : "Create ThreatConnect Task",
+      "programVersion" : "1.0.18"
+    },
+    "name" : "Create TC Task",
+    "scheduleType" : "Daily",
+    "scheduleLOM" : false,
+    "notifyOnFailure" : true,
+    "notifyOnPartialFailure" : false,
+    "notifyOnComplete" : false,
+    "notifyIncludeLogFiles" : false,
+    "enableNotifications" : false,
+    "publishAuth" : false,
+    "publishUsername" : "ysuWSoWRarWf4F0X",
+    "publishPassword" : "2ubeZhcSQdujzdhN",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "task_assignees"
+      },
+      "value" : ""
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "tags_all"
+      },
+      "value" : "true"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "tags"
+      }
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "task_escalatees"
+      },
+      "value" : ""
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "task_escalation_date"
+      }
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "resource_name"
+      },
+      "value" : "#Trigger:1916:taskName!String"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "attributes_all"
+      },
+      "value" : "true"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "resource_type"
+      },
+      "value" : "Task"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "labels_all"
+      },
+      "value" : "true"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "task_due_date"
+      }
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "attributes"
+      },
+      "value" : "[]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "task_reminder_date"
+      }
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "associations"
+      }
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "owner"
+      },
+      "value" : ""
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "labels"
+      }
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "fail_on_error"
+      },
+      "value" : "true"
+    } ],
+    "locationLeft" : 920.0,
+    "locationTop" : 210.0,
+    "outputVariables" : "[{\"name\":\"tc.task.id\",\"type\":\"String\"}]",
+    "playbookRetryEnabled" : false
+  }, {
+    "id" : 19135,
+    "appCatalogItem" : {
+      "programName" : "DataStore",
+      "displayName" : "DataStore",
+      "programVersion" : "1.0.0"
+    },
+    "name" : "Datastore: Store trigger URL",
+    "scheduleType" : "Daily",
+    "scheduleLOM" : false,
+    "notifyOnFailure" : true,
+    "notifyOnPartialFailure" : false,
+    "notifyOnComplete" : false,
+    "notifyIncludeLogFiles" : false,
+    "enableNotifications" : false,
+    "publishAuth" : false,
+    "publishUsername" : "asoqmyIxVf8cQcP6",
+    "publishPassword" : "Ri8V0RFHc6CE9jR7",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "request_entity"
+      },
+      "value" : "{\"target\": \"#Trigger:1916:targetURL!String\"}"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "organization_name"
+      },
+      "value" : ""
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "domain_type"
+      },
+      "value" : "Organization"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "path"
+      },
+      "value" : "#App:19134:tc.task.id!String"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "type_name"
+      },
+      "value" : "#App:19133:humanInTheLoopDatastoreName!String"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "db_method"
+      },
+      "value" : "POST"
+    } ],
+    "locationLeft" : 1130.0,
+    "locationTop" : 210.0,
+    "playbookRetryEnabled" : false
+  } ],
+  "playbookConnectionList" : [ {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "targetJobId" : 19133,
+    "sourceTriggerId" : 1916
+  }, {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "sourceJobId" : 19133,
+    "targetJobId" : 19134
+  }, {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "sourceJobId" : 19134,
+    "targetJobId" : 19135
+  } ],
+  "playbookTriggerList" : [ {
+    "id" : 1916,
+    "name" : "Component Trigger",
+    "type" : "PipeConfig",
+    "eventType" : "External",
+    "locationLeft" : 490.0,
+    "locationTop" : 210.0,
+    "httpBasicAuthEnable" : false,
+    "anyOrg" : true,
+    "orFilters" : false,
+    "fireOnDuplicate" : false,
+    "renderBodyAsTip" : false,
+    "outputVariables" : "[{\"name\":\"taskName\",\"type\":\"String\"},{\"name\":\"targetURL\",\"type\":\"String\"}]",
+    "pipeInputParams" : "[{\"label\":\"Task Name\",\"dataType\":\"String\",\"playbookDataType\":\"String\",\"required\":true,\"name\":\"taskName\",\"encrypted\":false,\"hidden\":false,\"hasDollarVariables\":false,\"playbookVariable\":false,\"validValuesList\":[\"${TEXT}\",\"${KEYCHAIN}\"]},{\"label\":\"Target Playbook URL (this URL will be called when the task is complete)\",\"dataType\":\"String\",\"playbookDataType\":\"String\",\"required\":true,\"name\":\"targetURL\",\"encrypted\":false,\"hidden\":false,\"hasDollarVariables\":false,\"playbookVariable\":false,\"validValuesList\":[\"${TEXT}\",\"${KEYCHAIN}\"]}]",
+    "pipeOutputParams" : "[]"
+  } ],
+  "exportablePipes" : [ ],
+  "dateExported" : "6/12/18 12:28 PM"
+}
